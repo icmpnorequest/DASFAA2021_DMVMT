@@ -3,7 +3,23 @@
 @author: Yantong Lai, Yijun Su, Cong Xue, Daren Zha
 
 
-## 1. Code Description
+## 0. Description
+
+This is the code for the 2021 DASFAA paper [Neural Demographic Prediction in Social Media with Deep Multi-View Multi-Task Learning](https://link.springer.com/chapter/10.1007/978-3-030-73197-7_18). We have implemented the method with PyTorch. Please cite our paper if you use the code or datasets:
+
+```
+@inproceedings{lai2021neural,
+  title={Neural Demographic Prediction in Social Media with Deep Multi-view Multi-task Learning},
+  author={Lai, Yantong and Su, Yijun and Xue, Cong and Zha, Daren},
+  booktitle={International Conference on Database Systems for Advanced Applications},
+  pages={271--279},
+  year={2021},
+  organization={Springer}
+}
+```
+
+
+## 1. Code Usage
 
 ### 1) dataset
 
@@ -72,7 +88,7 @@ SOFTWARE.
 ```
 
 
-## 4. Citations
+## 4. References
 
 [1] Hovy, D., Johannsen, A., Søgaard, A.: User review sites as a resource for large- scale sociolinguistic studies. In: Proceedings of the 24th international conference on World Wide Web. pp. 452–461 (2015)
 
