@@ -5,7 +5,7 @@
 @description: Deep multi-view multi-task learning for user gender and age classification.
 """
 
-from torchtext import data
+from torchtext.legacy import data
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -219,7 +219,7 @@ class EarlyStopping:
             self.best_score = score
             self.save_checkpoint(val_loss, model)
         # 2) score < best_score
-        elif score < self.best_score + self.delta:
+        elif score <= self.best_score + self.delta:
             self.counter += 1
             print(f'EarlyStopping counter: {self.counter} out of {self.patience}')
             if self.counter >= self.patience:
@@ -286,6 +286,20 @@ class MultiviewModel(nn.Module):
         # 7. Dropout
         self.dropout = nn.Dropout(dropout)
 
+        # 8. Initialize weights
+        self.init_weights()
+
+    def init_weights(self):
+        initrange = 0.5
+        self.senti_embedding.weight.data.uniform_(-initrange, initrange)
+        self.topic_embedding.weight.data.uniform_(-initrange, initrange)
+        self.fc.weight.data.uniform_(-initrange, initrange)
+        self.fc.bias.data.zero_()
+        self.fc_age.weight.data.uniform_(-initrange, initrange)
+        self.fc_age.bias.data.zero_()
+        self.fc_gender.weight.data.uniform_(-initrange, initrange)
+        self.fc_gender.bias.data.zero_()
+
     def forward(self, text, senti_words, topic_words):
         # 1. Encode review
         # 1) Embed text.
@@ -347,11 +361,9 @@ class MultiviewModel(nn.Module):
 
         # 7. Gender output
         gender_output = self.fc_gender(h_shared)
-        gender_output = F.softmax(gender_output)
 
         # 8. Age output
         age_output = self.fc_age(h_shared)
-        age_output = F.softmax(age_output)
 
         return gender_output, age_output
 
